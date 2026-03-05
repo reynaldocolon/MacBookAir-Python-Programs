@@ -1,5 +1,4 @@
 # new code for higher lower game
-import zipimport
 import gamedata 
 import game_art
 import random
