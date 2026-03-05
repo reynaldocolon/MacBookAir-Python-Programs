@@ -1,4 +1,5 @@
 # new code for higher lower game
+data = 1
 import gamedata 
 import game_art
 import random
