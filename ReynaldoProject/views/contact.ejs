@@ -1,0 +1,12 @@
+<%- include('layout', { body: `
+    <div class="card">
+        <h1>Contact</h1>
+        ${success ? '<p style="color:green">Saved!</p>' : ''}
+        <form action="/contact" method="POST">
+            <input name="name" placeholder="Name" required><br>
+            <input name="email" placeholder="Email" required><br>
+            <textarea name="message" placeholder="Message"></textarea><br>
+            <button type="submit" class="btn">Send</button>
+        </form>
+    </div>
+` }) %>
