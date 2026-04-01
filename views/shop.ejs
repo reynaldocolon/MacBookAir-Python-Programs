@@ -1,0 +1,16 @@
+<%- include('layout', { body: `
+    <div class="container" style="display: block;">
+        <h1 style="margin-bottom: 40px;">Product Gallery</h1>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            ${products.map(p => `
+                <div class="card" style="padding: 20px;">
+                    <img src="${p.image}" style="width: 100%; border-radius: 10px; margin-bottom: 15px;">
+                    <h3>${p.name}</h3>
+                    <p style="color: var(--primary); font-weight: bold; font-size: 1.2rem;">${p.price}</p>
+                    <p style="font-size: 0.9rem; color: #94a3b8;">${p.desc}</p>
+                    <button class="btn" style="padding: 8px;">View Details</button>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+` }) %>
