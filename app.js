@@ -22,9 +22,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Define Login Logic
 passport.use(new LocalStrategy((username, password, done) => {
-    // Admin Credentials - Change these as needed!
     if (username === "admin" && password === "password123") {
         return done(null, { id: 1, name: "Reynaldo" });
     }
@@ -34,20 +32,35 @@ passport.use(new LocalStrategy((username, password, done) => {
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => done(null, { id: 1, name: "Reynaldo" }));
 
-// Security Gatekeeper Function
 function checkAuth(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect('/login');
 }
 
-// --- 3. PUBLIC ROUTES ---
+// --- 3. FOOTER DATA (The "Fancy" Part) ---
+// This variable sends the footer info to every page automatically
+const footerHTML = `
+<footer style="background:#1a1a2e; color:white; padding:40px; margin-top:50px; text-align:center; border-top:3px solid #4ecca3;">
+    <div style="display:flex; justify-content:space-around; flex-wrap:wrap; max-width:1000px; margin:0 auto;">
+        <div>
+            <h3 style="color:#4ecca3;">Python Journey</h3>
+            <p>Coding the future.</p>
+        </div>
+        <div>
+            <h4 style="color:#4ecca3;">Links</h4>
+            <a href="/" style="color:white; text-decoration:none;">Home</a> | 
+            <a href="/shop" style="color:white; text-decoration:none;">Shop</a>
+        </div>
+    </div>
+    <p style="margin-top:20px; font-size:0.8rem; opacity:0.6;">&copy; 2026 Reynaldo Colon</p>
+</footer>`;
 
-// Home Page
+// --- 4. ROUTES ---
+
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { footer: footerHTML });
 });
 
-// Shop Page (Reads from products.csv)
 app.get('/shop', (req, res) => {
     let products = [];
     const filePath = path.join(__dirname, 'products.csv');
@@ -60,15 +73,13 @@ app.get('/shop', (req, res) => {
             });
         }
     }
-    res.render('shop', { products });
+    res.render('shop', { products, footer: footerHTML });
 });
 
-// Contact Page
 app.get('/contact', (req, res) => {
-    res.render('contact');
+    res.render('contact', { footer: footerHTML });
 });
 
-// Handle Contact Form Submission
 app.post('/contact', (req, res) => {
     const { name, email, message } = req.body;
     const data = `"${name}","${email}","${message}"\n`;
@@ -76,10 +87,8 @@ app.post('/contact', (req, res) => {
     res.send("<h1>Message Sent!</h1><a href='/'>Go Back</a>");
 });
 
-// --- 4. AUTH ROUTES ---
-
 app.get('/login', (req, res) => {
-    res.render('login', { error: false });
+    res.render('login', { error: false, footer: footerHTML });
 });
 
 app.post('/login', passport.authenticate('local', {
@@ -87,14 +96,7 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login'
 }));
 
-app.get('/logout', (req, res) => {
-    req.logout(() => res.redirect('/'));
-});
-
-// --- 5. ADMIN ROUTES (PROTECTED) ---
-
 app.get('/admin', checkAuth, (req, res) => {
-    // Read Leads
     let leads = [];
     if (fs.existsSync(path.join(__dirname, 'leads.csv'))) {
         const leadData = fs.readFileSync(path.join(__dirname, 'leads.csv'), 'utf8').trim();
@@ -105,20 +107,11 @@ app.get('/admin', checkAuth, (req, res) => {
             });
         }
     }
-    res.render('admin', { leads });
+    res.render('admin', { leads, footer: footerHTML });
 });
 
-// Handle adding new products from Admin
-app.post('/admin/add-product', checkAuth, (req, res) => {
-    const { name, price, image, description } = req.body;
-    const newLine = `"${name}","${price}","${image || 'https://via.placeholder.com/150'}","${description}"\n`;
-    fs.appendFileSync(path.join(__dirname, 'products.csv'), newLine);
-    res.redirect('/shop');
-});
-
-// Start Server
+// --- 5. START SERVER (RENDER COMPATIBLE) ---
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
