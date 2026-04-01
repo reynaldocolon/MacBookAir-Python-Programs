@@ -1,7 +1,83 @@
-body { background: #2c3e50; color: white; font-family: sans-serif; text-align: center; }
-nav { padding: 20px; background: #1a252f; }
-nav a { color: white; text-decoration: none; margin: 0 10px; }
-.container { padding: 50px; display: flex; justify-content: center; }
-.card { background: white; color: #333; padding: 20px; border-radius: 10px; min-width: 300px; }
-.btn { background: #34495e; color: white; border: none; padding: 10px; cursor: pointer; width: 100%; }
-input, textarea { width: 90%; margin: 10px 0; padding: 8px; }
+:root {
+    --primary: #1abc9c;    
+    --bg-dark: #0f172a;    
+    --card-bg: rgba(255, 255, 255, 0.05); 
+    --text-main: #f8fafc;
+}
+
+body {
+    background: radial-gradient(circle at top, #1e293b 0%, var(--bg-dark) 100%);
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-main);
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* NAVIGATION */
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover { color: var(--primary); }
+
+/* THE FLEXBOX CONTAINER (This fixes the scaling) */
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to next line */
+    justify-content: center;
+    align-items: center;
+    padding: 80px 10%;
+    gap: 40px;
+    min-height: 70vh;
+}
+
+/* THE CARD (This fills the empty space) */
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 20px;
+    flex: 1; /* Tells the card to grow to fill space */
+    min-width: 320px; /* Won't get smaller than this */
+    max-width: 550px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4); }
+
+/* MOBILE FIXES */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 20px;
+        flex-direction: column;
+    }
+    h1 { font-size: 2rem !important; }
+}

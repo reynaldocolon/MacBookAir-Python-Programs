@@ -1,6 +1,26 @@
 <%- include('layout', { body: `
-    <div class="card">
-        <h1>Welcome</h1>
-        <p>This is your new Express home page.</p>
+    <div class="container">
+        <div style="flex: 1.5; text-align: left; min-width: 300px;">
+            <h1 style="font-size: 4rem; margin-bottom: 10px; background: linear-gradient(to right, #1abc9c, #3498db); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Reynaldo Colon
+            </h1>
+            <p style="font-size: 1.3rem; color: #94a3b8; line-height: 1.6; margin-bottom: 30px;">
+                I architect high-performance backend systems and craft modern digital experiences that scale.
+            </p>
+            <div style="display: flex; gap: 15px;">
+                <a href="/shop"><button class="btn">Explore My Work</button></a>
+                <a href="/contact"><button class="btn" style="background: transparent; border: 1px solid var(--primary);">Contact Me</button></a>
+            </div>
+        </div>
+
+        <div class="card" style="flex: 1; border-left: 4px solid var(--primary);">
+            <h3 style="color: var(--primary); margin-top: 0;">What I'm Working On</h3>
+            <ul style="list-style: none; padding: 0; color: #94a3b8; text-align: left; line-height: 2;">
+                <li>🔹 Node.js API Development</li>
+                <li>🔹 Responsive UI/UX Design</li>
+                <li>🔹 Database Architecture</li>
+                <li>🔹 E-commerce Solutions</li>
+            </ul>
+        </div>
     </div>
 ` }) %>

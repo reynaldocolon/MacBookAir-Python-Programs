@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reynaldo Colon | Portfolio</title>
     <link rel="stylesheet" href="/style.css">
-    <title>ReynaldoColon.org</title>
 </head>
 <body>
+
     <nav>
-        <a href="/">Home</a> | <a href="/shop">Shop</a> | <a href="/contact">Contact</a>
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/contact">Contact</a>
+        <a href="/login" style="border: 1px solid var(--primary); padding: 5px 15px; border-radius: 5px;">Admin</a>
     </nav>
-    <div class="container">
+
+    <main>
         <%- body %>
-    </div>
+    </main>
+
+    <footer style="margin-top: 50px; padding: 40px; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="text-align: left;">
+                <span style="color: var(--primary); font-weight: bold; font-size: 1.2rem;">jcwic.org</span>
+                <p style="color: #64748b; font-size: 0.8rem;">© 2026 Reynaldo Colon. All rights reserved.</p>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <a href="/" style="color: #94a3b8; text-decoration: none;">Home</a>
+                <a href="/shop" style="color: #94a3b8; text-decoration: none;">Shop</a>
+                <a href="/login" style="color: #94a3b8; text-decoration: none;">Admin</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
